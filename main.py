@@ -20,12 +20,14 @@ def xss_1():
 # reflected xss
 @app.route("/xss_2", methods = ['GET'])
 def xss_2():
-    username = request.args.get("username")
+    # username = request.args.get("username")
+    username = 'tom'
     return "<p>Welcome to our app %s!" % username
 
 @app.route("/xss_3", methods = ['GET'])
 def xss_3():
-    user_id = request.cookies.get('UserID')
+    # user_id = request.cookies.get('UserID')
+    username = 'dave'
     return "<p>Welcome to our app %s!" % user_id 
 
 @app.route("/code_injection_1", methods = ['GET', 'POST'])
