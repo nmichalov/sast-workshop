@@ -1,4 +1,6 @@
 from flask import Flask, request
+import os
+import sys
 
 app = Flask(__name__)
 
@@ -7,11 +9,15 @@ app = Flask(__name__)
 def hello():
     return 'Hello, World!'
 
+# 
 @app.route("/xss_1", methods = ['GET'])
 def xss_1():
-    username = request.environ.get("XSS")
+    file_data = open("config/static_values.csv", "r")
+    username = file_data.readlines()
+    # username = request.environ.get("XSS")
     return "<p>Welcome to our app %s!" % username 
 
+# reflected xss
 @app.route("/xss_2", methods = ['GET'])
 def xss_2():
     username = request.args.get("username")
@@ -24,5 +30,9 @@ def xss_3():
 
 @app.route("/code_injection_1", methods = ['GET', 'POST'])
 def code_injection_1():
-    new_command = request.arg.get("command")
-    eval("%s" % new_command)
+    filename = request.args.get("filename")
+    if filename in ["config","system"]:
+        _download_git(filename)
+
+def _download_git(filename):
+        os.system("git clone --quiet %s" % (filename))
