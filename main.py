@@ -21,14 +21,12 @@ def xss_1():
 @app.route("/xss_2", methods = ['GET'])
 def xss_2():
     # username = request.args.get("username")
-    username = 'tom'
-    return "<p>Welcome to our app %s!" % username
+    return "<p>Welcome to our app %s!" % 'tom' # username
 
 @app.route("/xss_3", methods = ['GET'])
 def xss_3():
     # user_id = request.cookies.get('UserID')
-    username = 'dave'
-    return "<p>Welcome to our app %s!" % user_id 
+    return "<p>Welcome to our app %s!" % 'dave' # user_id 
 
 @app.route("/code_injection_1", methods = ['GET', 'POST'])
 def code_injection_1():
@@ -52,7 +50,7 @@ def _download_git_2(filename):
 @app.route("/code_injection_3", methods = ['GET', 'POST'])
 def code_injection_3():
     filename = request.args.get("filename")
-    approved_files = []
+    approved_files = ['config']
     approved_files.append(filename)
     target_file = approved_files[0]
     _download_git_3(target_file)
