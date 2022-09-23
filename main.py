@@ -61,11 +61,6 @@ def _download_git_3(filename):
 
 @app.route("/tar1", methods = ['GET', 'POST'])
 def tarslip1():
-    file_path= request.args.get("file_path")
-    tarfile.extractall(file_path)
-
-@app.route("/tar2", methods = ['GET', 'POST'])
-def tarslip2():
-    file_path= request.args.get("file_path")
-    tarfile.extract(file_path)
-
+    with tarfile.open("test.tar", "r:gz") as tar:
+        tar.extractall()
+        print("extracted")
