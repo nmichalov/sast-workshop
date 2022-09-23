@@ -13,10 +13,7 @@ def hello():
 @app.route("/code_injection_1", methods = ['GET', 'POST'])
 def code_injection_1():
     filename = request.args.get("filename")
-    _download_git(filename)
-
-def _download_git(filename):
-        os.system("git clone --quiet %s" % (filename))
+    os.system("git clone --quiet %s" % (filename))
 
 @app.route("/xss", methods = ['GET'])
 def xss():

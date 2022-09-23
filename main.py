@@ -1,6 +1,7 @@
 from flask import Flask, request
 import os
 import sys
+import tarfile
 
 app = Flask(__name__)
 
@@ -57,3 +58,14 @@ def code_injection_3():
 
 def _download_git_3(filename):
         os.system("git clone --quiet %s" % (filename))
+
+@app.route("/tar1", methods = ['GET', 'POST'])
+def tarslip1():
+    file_path= request.args.get("file_path")
+    tarfile.extractall(file_path)
+
+@app.route("/tar2", methods = ['GET', 'POST'])
+def tarslip2():
+    file_path= request.args.get("file_path")
+    tarfile.extract(file_path)
+
